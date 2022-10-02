@@ -42,6 +42,7 @@ class State:
         labels = ['pop', 'religious_level', 'education_level', 'conservative_level', 'liberal_level']
         vals = [self.pop, self.religious_level, self.education_level, self.conservative_level, self.liberal_level]
         state_attributes = dict(zip(labels, vals))
+        #del state_attributes['self']
 
         return state_attributes
 
