@@ -16,7 +16,8 @@ class State:
             religious_level=None,
             education_level=None,
             conservative_level=None,
-            liberal_level=None
+            liberal_level=None,
+            approval_level=None
     ):
         self.__dict__.update(locals())
 
@@ -38,12 +39,22 @@ class State:
             self.conservative_level = val_from_normal_dist(modify_dist_mean(self.religious_level, inv=True))
         if not self.liberal_level:
             self.liberal_level = 100-self.conservative_level
+        if not self.approval_level:
+            self.approval_level = 50
 
-        labels = ['pop', 'religious_level', 'education_level', 'conservative_level', 'liberal_level']
-        vals = [self.pop, self.religious_level, self.education_level, self.conservative_level, self.liberal_level]
+        labels = ['pop', 'religious_level', 'education_level', 'conservative_level', 'liberal_level', 'approval_level']
+        vals = [self.pop, self.religious_level, self.education_level, self.conservative_level, self.liberal_level,
+                self.approval_level]
         state_attributes = dict(zip(labels, vals))
 
         return state_attributes
+
+    def get_player_name(self, player_name):
+
+        if not player_name:
+            player_name = 'Ruthless Rick'
+
+        return player_name
 
     def update_attributes(self, attribute_mod_dict):
 

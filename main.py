@@ -1,34 +1,16 @@
 import pygame
 import pygame_menu
-from create_world import State
-import json
-from temp import initiate_game, main_screen
-import os
-import random
 from pygame.locals import *
 import sys
+from main_2 import main_game_screen
 
 color_white = (255, 255, 255)
 color_black = (0, 0, 0)
-#
-# width, height = 500, 700
-# windows = pygame.display.set_mode((width, height))
-# pygame.display.set_caption("Modern Democracy: The Game!")
-#
-# bg = pygame.image.load(os.path.join("images/redblue.jpg"))
-#
-#
-# def load_image(fdir=None, name=None):
-#     if fdir is None:
-#         image = pygame.image.load(name)
-#         return image
-#     else:
-#         image = pygame.image.load(fdir + '/' + name)
-#         return image
-#
 
 
 def main_menu():
+
+    pygame.display.set_caption('Modern Democracy: The Game!')
 
     def start_the_game():
         start_game()
@@ -55,19 +37,19 @@ def start_game():
         pass
 
     def go_to_game():
-        initiate_game()
-        game_screen()
+        menu.disable()
+        main_game_screen()
 
     def get_name(value):
         player_name = value
-        # add name to game file
+        # add name to game file - or to state object?
 
         return player_name
 
     menu = pygame_menu.Menu('Modern Democracy: The Game!', 600, 400,
                             theme=pygame_menu.themes.THEME_BLUE)
 
-    player_name = menu.add.text_input('Name :', default='', onchange=get_name)
+    player_name = menu.add.text_input('Name : ', default='', onchange=get_name)
     #menu.add.text_input('Ruler Name :', default='')
     menu.add.button('Return to Main Menu', return_main_menu)
     menu.add.button('Start', go_to_game)
@@ -79,8 +61,6 @@ def start_game():
 def game_screen():
 
     while True:
-        surface.fill(color_black)
-        pygame.display.update()
 
         MAPWIDTH = 25
         MAPHEIGHT = 15
