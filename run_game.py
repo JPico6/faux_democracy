@@ -4,7 +4,7 @@ import json
 new_game = False
 
 if new_game:
-    turn = 1
+#    turn = 1
 
 # 1. ititiate game
 
