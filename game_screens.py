@@ -123,10 +123,6 @@ def main_game_screen(player_name, state_name):
             DISPLAYSURF.blit(textObj, (place_position, MAPHEIGHT * TILESIZE + 10))
             place_position += 50
 
-
-        # Clamp FPS
-        #clock.tick_busy_loop( 120 )
-
         # so you can click out of - quit the game
         for event in pygame.event.get():
             if event.type == QUIT:

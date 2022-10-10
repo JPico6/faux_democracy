@@ -50,13 +50,6 @@ class State:
 
         return state_attributes
 
-    def get_player_name(self, player_name):
-
-        if not player_name:
-            player_name = 'Ruthless Rick'
-
-        return player_name
-
     def update_attributes(self, attribute_mod_dict):
 
         # modify each population attribute based on current events / player decisions per turn
@@ -66,12 +59,10 @@ class State:
             setattr(self, key, check_bounds(key, new_value))
 
 
-
 def initiate_game():
 
     # A. initiate world
     game_data = {}
-    state1 = {}
     game_dat = {}
     game_dat['turn'] = 1
 
@@ -91,7 +82,7 @@ def initiate_game():
 #    def return_attributes(self):
 
 # TODO: determine how best to store values between turns (save to file?)
-# TODO: when an attribute value reaches 100 and modifiers continue to push it up, that should affect the extremist porportions
+# TODO: when an attribute value reaches 100 and modifiers continue to push it up, that should affect the extremist proportions
 # TODO: as attributes get more extreme, they should more slowly modify further towards the extremes
         # e.g., the modifier should be reduced when going up from 80 but should be able to drop at normal speed
 
