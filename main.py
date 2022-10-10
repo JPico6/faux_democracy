@@ -34,28 +34,27 @@ def start_game():
 
     def return_main_menu():
         main_menu()
-        pass
-
-    def go_to_game():
-        menu.disable()
-        main_game_screen()
-
-    def get_name(value):
-        player_name = value
-        # add name to game file - or to state object?
-
-        return player_name
 
     menu = pygame_menu.Menu('Modern Democracy: The Game!', 600, 400,
                             theme=pygame_menu.themes.THEME_BLUE)
 
-    player_name = menu.add.text_input('Name : ', default='', onchange=get_name)
-    #menu.add.text_input('Ruler Name :', default='')
+    name_box = menu.add.text_input('Name : ', default='')
+    menu.add.button('Play', game_start, name_box)
     menu.add.button('Return to Main Menu', return_main_menu)
-    menu.add.button('Start', go_to_game)
     menu.mainloop(surface)
 
-    return player_name
+
+def game_start(name_box):
+
+    def close_menu():
+        menu.disable()
+        main_game_screen()
+
+    menu = pygame_menu.Menu('Modern Democracy: The Game!', 600, 400,
+                            theme=pygame_menu.themes.THEME_BLUE)
+
+    menu.add.button(f'Welcome {name_box.get_value()}!', close_menu)
+    menu.mainloop(surface)
 
 
 def game_screen():
