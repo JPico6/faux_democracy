@@ -6,12 +6,16 @@ import sys
 color_white = (255, 255, 255)
 color_black = (0, 0, 0)
 
-def main_game_screen():
+
+def main_game_screen(player_name, state_name):
 
 #    clock = pygame.time.Clock()
 
     # create player-state attributes
     game_data = initiate_game()
+    game_data['game_dat']['player_name'] = player_name
+    game_data['game_dat']['state_name'] = state_name
+    print(game_data)
 
     pygame.font.init()
     pygame.display.set_caption('Modern Democracy: The Game!')
@@ -35,8 +39,8 @@ def main_game_screen():
 
         display_attributes = {
             Turn: game_data['game_dat']['turn'],
-            Population: format(game_data['state1']['pop'], ","),
-            Approval: "%s%%"%game_data['state1']['approval_level'],
+            Population: format(game_data['state_dat']['pop'], ","),
+            Approval: "%s%%"%game_data['state_dat']['approval_level'],
             Currency: 100
         }
 

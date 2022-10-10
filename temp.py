@@ -14,11 +14,9 @@ def initiate_game():
     # b. initiate state(s)
     state1 = State()
     state1_attributes = state1.generate_attributes()
-    print(state1_attributes)
     game_data['game_dat'] = game_dat
-    game_data['state1'] = state1_attributes
+    game_data['state_dat'] = state1_attributes
     # game_data = json.dumps(game_data)
-    print(game_data)
 
     with open('data/turn_dat.json', 'w') as f:
         json.dump(game_data, f)
@@ -31,7 +29,7 @@ def main_screen():
     f = open('data/turn_dat.json')
     game_data = json.load(f)
 
-    state_attributes = game_data.get('state1')
+    state_attributes = game_data.get('state_dat')
 
     #print(data['places'][0]['post code'])
     return state_attributes
