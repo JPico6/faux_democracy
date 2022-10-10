@@ -1,3 +1,4 @@
+import json
 import random
 from utils_state import val_from_normal_dist, modify_dist_mean, check_bounds
 
@@ -63,6 +64,29 @@ class State:
             orig_value = getattr(self, key, value)
             new_value = orig_value * value
             setattr(self, key, check_bounds(key, new_value))
+
+
+
+def initiate_game():
+
+    # A. initiate world
+    game_data = {}
+    state1 = {}
+    game_dat = {}
+    game_dat['turn'] = 1
+
+    # b. initiate state(s)
+    state1 = State()
+    state1_attributes = state1.generate_attributes()
+    game_data['game_dat'] = game_dat
+    game_data['state_dat'] = state1_attributes
+    # game_data = json.dumps(game_data)
+
+    with open('data/turn_dat.json', 'w') as f:
+        json.dump(game_data, f)
+
+    return game_data
+
 
 #    def return_attributes(self):
 
