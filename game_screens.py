@@ -71,22 +71,27 @@ def main_game_screen(player_name, state_name, initiate=False):
         menu.mainloop(surface)
 
     def approval_menu():
+
         def close_menu():
             menu.disable()
-            main_game_screen(player_name, state_name)
+            main_game_screen(None, None)
 
-        menu = pygame_menu.Menu('Modern Democracy: The Game!', 600, 400, theme=pygame_menu.themes.THEME_BLUE)
+        menu = pygame_menu.Menu('Modern Democracy: The Game!', 600, 400,
+                                theme=pygame_menu.themes.THEME_BLUE)
+        menu.add.button('Close Menu', close_menu)
         menu.mainloop(surface)
-        menu.add.button('Close', close_menu)
+
 
     def currency_menu():
+
         def close_menu():
             menu.disable()
-            main_game_screen(player_name, state_name)
+            main_game_screen(None, None)
 
-        menu = pygame_menu.Menu('Modern Democracy: The Game!', 600, 400, theme=pygame_menu.themes.THEME_BLUE)
+        menu = pygame_menu.Menu('Modern Democracy: The Game!', 600, 400,
+                                theme=pygame_menu.themes.THEME_BLUE)
+        menu.add.button('Close Menu', close_menu)
         menu.mainloop(surface)
-        menu.add.button('Close', close_menu)
 
     def in_game_menu(inpt):
         if inpt == 1:
@@ -163,7 +168,7 @@ def main_game_screen(player_name, state_name, initiate=False):
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pos = pygame.mouse.get_pos()
 
-                    if DISPLAYSURF.blit(textures[item], (place_position-70, MAPHEIGHT * TILESIZE + 10)).collidepoint(pos):
+                    if DISPLAYSURF.blit(textures[item], (place_position-80, MAPHEIGHT * TILESIZE + 10)).collidepoint(pos):
                         in_game_menu(item)
 
 
