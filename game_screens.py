@@ -4,11 +4,15 @@ from create_world import initiate_game
 from pygame.locals import *
 import sys
 import json
+from plot_state_attributes import plot_attribute
 
 color_white = (255, 255, 255)
 color_black = (0, 0, 0)
 surface = pygame.display.set_mode((1000, 600))
 game_initiated = False
+
+pygame.mouse.set_visible(False)
+pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
 
 
 def main_menu():
@@ -61,12 +65,16 @@ def main_game_screen(player_name, state_name, initiate=False):
 
     def pop_menu():
 
+        def historical_pop():
+            plot_attribute()
+
         def close_menu():
             menu.disable()
             main_game_screen(None, None)
 
-        menu = pygame_menu.Menu('Modern Democracy: The Game!', 600, 400,
+        menu = pygame_menu.Menu('Population Menu', 600, 400,
                                 theme=pygame_menu.themes.THEME_BLUE)
+        menu.add.button('Historical Population', historical_pop)
         menu.add.button('Close Menu', close_menu)
         menu.mainloop(surface)
 
@@ -76,7 +84,7 @@ def main_game_screen(player_name, state_name, initiate=False):
             menu.disable()
             main_game_screen(None, None)
 
-        menu = pygame_menu.Menu('Modern Democracy: The Game!', 600, 400,
+        menu = pygame_menu.Menu('Approval Menu', 600, 400,
                                 theme=pygame_menu.themes.THEME_BLUE)
         menu.add.button('Close Menu', close_menu)
         menu.mainloop(surface)
@@ -88,7 +96,7 @@ def main_game_screen(player_name, state_name, initiate=False):
             menu.disable()
             main_game_screen(None, None)
 
-        menu = pygame_menu.Menu('Modern Democracy: The Game!', 600, 400,
+        menu = pygame_menu.Menu('Currency Menu', 600, 400,
                                 theme=pygame_menu.themes.THEME_BLUE)
         menu.add.button('Close Menu', close_menu)
         menu.mainloop(surface)
@@ -113,7 +121,6 @@ def main_game_screen(player_name, state_name, initiate=False):
 
     pygame.font.init()
     pygame.display.set_caption('Modern Democracy: The Game!')
-    my_font = pygame.font.SysFont('Comic Sans MS', 30)
     pygame.init()
     surface = pygame.display.set_mode((1000, 600))
 
@@ -165,10 +172,18 @@ def main_game_screen(player_name, state_name, initiate=False):
                 DISPLAYSURF.blit(textObj, (place_position, MAPHEIGHT * TILESIZE + 10))
                 place_position += 50
 
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    pos = pygame.mouse.get_pos()
+                if event.type == pygame.MOUSEMOTION:
+                    mouse_pos = pygame.mouse.get_pos()
+                    if DISPLAYSURF.blit(textures[item], (place_position-80, MAPHEIGHT * TILESIZE + 10)).collidepoint(mouse_pos):
+                        #pygame.mouse.set_visible(False)
+                        pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+                    else:
+                        pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
-                    if DISPLAYSURF.blit(textures[item], (place_position-80, MAPHEIGHT * TILESIZE + 10)).collidepoint(pos):
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    click_pos = pygame.mouse.get_pos()
+
+                    if DISPLAYSURF.blit(textures[item], (place_position-80, MAPHEIGHT * TILESIZE + 10)).collidepoint(click_pos):
                         in_game_menu(item)
 
 
