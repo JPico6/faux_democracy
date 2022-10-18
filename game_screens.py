@@ -4,7 +4,8 @@ from create_world import initiate_game
 from pygame.locals import *
 import sys
 import json
-from plot_state_attributes import plot_attribute
+from plot_state_attributes import plot_state_attribute
+from state_plot_screens import population_screen, approval_screen#, currency_screen
 
 color_white = (255, 255, 255)
 color_black = (0, 0, 0)
@@ -63,51 +64,13 @@ def game_start(name_box, state_name_box):
 
 def main_game_screen(player_name, state_name, initiate=False):
 
-    def pop_menu():
-
-        def historical_pop():
-            plot_attribute()
-
-        def close_menu():
-            menu.disable()
-            main_game_screen(None, None)
-
-        menu = pygame_menu.Menu('Population Menu', 600, 400,
-                                theme=pygame_menu.themes.THEME_BLUE)
-        menu.add.button('Historical Population', historical_pop)
-        menu.add.button('Close Menu', close_menu)
-        menu.mainloop(surface)
-
-    def approval_menu():
-
-        def close_menu():
-            menu.disable()
-            main_game_screen(None, None)
-
-        menu = pygame_menu.Menu('Approval Menu', 600, 400,
-                                theme=pygame_menu.themes.THEME_BLUE)
-        menu.add.button('Close Menu', close_menu)
-        menu.mainloop(surface)
-
-
-    def currency_menu():
-
-        def close_menu():
-            menu.disable()
-            main_game_screen(None, None)
-
-        menu = pygame_menu.Menu('Currency Menu', 600, 400,
-                                theme=pygame_menu.themes.THEME_BLUE)
-        menu.add.button('Close Menu', close_menu)
-        menu.mainloop(surface)
-
     def in_game_menu(inpt):
         if inpt == 1:
-            pop_menu()
+            population_screen()
         if inpt == 2:
-            approval_menu()
-        if inpt == 3:
-            currency_menu()
+            approval_screen()
+        # if inpt == 3:
+        #     currency_menu()
 
     # create player-state attributes
     if initiate:
