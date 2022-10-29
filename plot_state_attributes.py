@@ -12,19 +12,23 @@ def plot_state_attribute(attribute1, attribute2=False, custom_title=False):
 
         plt.style.use("cyberpunk")
 
+        lab_attr1 = attribute1.replace("_", " ").title()
+        if attribute2:
+            lab_attr2 = attribute2.replace("_", " ").title()
+
         fig, ax = plt.subplots()
         ax.plot(
             dat['Turn'],
             dat[attribute1],
             color="red",
-            label=attribute1
+            label=lab_attr1
         )
         if attribute2:
             ax.plot(
                 dat['Turn'],
                 dat[attribute2],
                 color="blue",
-                label=attribute2
+                label=lab_attr2
             )
         if custom_title:
             ax.set_ylabel(custom_title, fontsize=14)
