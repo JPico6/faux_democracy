@@ -1,5 +1,6 @@
 import json
 import random
+import os
 from utils_state import val_from_normal_dist, modify_dist_mean, check_bounds
 
 
@@ -134,11 +135,13 @@ def initiate_game():
     game_data['game_dat'] = game_dat
     game_data['turn1'] = state1_attributes
 
-    #with open('data/turn_dat.json', 'w') as f:
-    #    json.dump(game_data, f)
-
     # Serializing json
     game_object = json.dumps(game_data)
+
+    path = 'data/'
+    isExist = os.path.exists(path)
+    if not isExist:
+        os.makedirs(path)
 
     # Writing to sample.json
     with open("data/turn_dat.json", "w") as outfile:
