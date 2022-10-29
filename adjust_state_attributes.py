@@ -118,7 +118,7 @@ def new_turn():
         # save new json
         with open(f'data/turn_dat.json', 'w') as f:
             json.dump(orig_game_data, f)
-            print('game data saved to data/game_dat.json')
+            # print('game data saved to data/game_dat.json')
 
     update_turn()
 
