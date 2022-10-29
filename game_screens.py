@@ -69,6 +69,7 @@ def main_game_screen(player_name, state_name, initiate=False):
 
         if inpt == 0:
             new_turn()
+            main_game_screen(player_name, state_name)
         if inpt == 1:
             population_screen()
         if inpt == 2:
@@ -87,9 +88,8 @@ def main_game_screen(player_name, state_name, initiate=False):
             outfile.write(game_object)
         print(game_data)
     if not initiate:
-        with open('images/turn_dat.json') as f:
+        with open('data/turn_dat.json') as f:
             game_data = json.load(f)
-            turn = game_dat['turn_dat']
 
     pygame.font.init()
     pygame.display.set_caption('Modern Democracy: The Game!')
@@ -110,10 +110,11 @@ def main_game_screen(player_name, state_name, initiate=False):
 
         Turn, Population, Approval, Currency = 0, 1, 2, 3
 
+        current_turn = game_data['game_dat']['turn']
         display_attributes = {
             Turn: game_data['game_dat']['turn'],
-            Population: format(game_data['turn1']['pop'], ","),
-            Approval: "%s%%"%game_data['turn1']['approval_level'],
+            Population: format(game_data[f'turn{current_turn}']['pop'], ","),
+            Approval: "%s%%"%game_data[f'turn{current_turn}']['approval_level'],
             Currency: 100
         }
 
