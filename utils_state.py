@@ -1,7 +1,7 @@
 import scipy.stats as stats
 
 
-def val_from_normal_dist(modifier=1):
+def val_from_normal_dist(modifier=1, mu=None, sigma=None):
 
     # generates a value from a normal distribution
     # modifier alters the mean, default to 1 (no modification)
@@ -9,7 +9,11 @@ def val_from_normal_dist(modifier=1):
     # range
     a, b = 1, 100
     # mean, sd
-    mu, sigma = 50*modifier, 25
+    if not mu:
+        mu = 50*modifier
+    if not sigma:
+        sigma = 25
+
     dist = stats.truncnorm((a - mu) / sigma, (b - mu) / sigma, loc=mu, scale=sigma)
 
     value = dist.rvs(1)
@@ -36,3 +40,21 @@ def check_bounds(key, val):
             val = 1
     return int(val)
 
+
+def nested_keys(d) -> set:
+
+    from collections.abc import Mapping
+
+    """
+    Return a set containing all nested keys.
+    """
+    # If it is not a dict-like object, return an empty set
+    if not isinstance(d, Mapping):
+        return set()
+
+    keys = d.keys()
+    for v in d.values():
+        # Update the keys set with the keys in each value by using the union (or) operator: |
+        keys |= nested_keys(v)
+
+    return keys

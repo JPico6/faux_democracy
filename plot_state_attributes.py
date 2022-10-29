@@ -1,7 +1,9 @@
+import numpy as np
 import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
 import mplcyberpunk
+import json
 
 
 def plot_state_attribute(attribute1, attribute2=False, custom_title=False):
@@ -54,6 +56,24 @@ def plot_state_attribute(attribute1, attribute2=False, custom_title=False):
     dat = pd.DataFrame(list(zip(turn, pop, birth_rate, death_rate, approval, conservative_approval, liberal_approval)),
                        columns=['Turn', 'Population', 'Birth Rate', 'Death Rate', 'Approval', 'Conservative Approval',
                                 'Liberal Approval'])
+
+    with open("data/turn_dat.json", "r") as jsonFile:
+        game_data = json.load(jsonFile)
+    n_turns = game_data['game_dat']['turn']
+    turn = np.arange(1, n_turns + 1)
+
+    att1 = []
+    att2 = []
+    for i in range(1, n_turns + 1):
+        att1.append(game_data[f'turn{i}'][attribute1])
+    if attribute2:
+        for i in range(1, n_turns + 1):
+            att2.append(game_data[f'turn{i}'][attribute2])
+    if not att2:
+        dat = pd.DataFrame(list(zip(turn, att1)), columns=['Turn', attribute1])
+    else:
+        dat = pd.DataFrame(list(zip(turn, att1, att2)), columns=['Turn', attribute1, attribute2])
+    print(dat)
     surf = plot(dat, attribute1, attribute2, custom_title)
 
     return surf

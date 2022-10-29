@@ -4,8 +4,9 @@ from create_world import initiate_game
 from pygame.locals import *
 import sys
 import json
-from plot_state_attributes import plot_state_attribute
+from adjust_state_attributes import new_turn
 from state_plot_screens import population_screen, approval_screen#, currency_screen
+
 
 color_white = (255, 255, 255)
 color_black = (0, 0, 0)
@@ -65,6 +66,9 @@ def game_start(name_box, state_name_box):
 def main_game_screen(player_name, state_name, initiate=False):
 
     def in_game_menu(inpt):
+
+        if inpt == 0:
+            new_turn()
         if inpt == 1:
             population_screen()
         if inpt == 2:
@@ -77,10 +81,15 @@ def main_game_screen(player_name, state_name, initiate=False):
         game_data = initiate_game()
         game_data['game_dat']['player_name'] = player_name
         game_data['game_dat']['state_name'] = state_name
+        # save:
+        game_object = json.dumps(game_data)
+        with open("data/turn_dat.json", "w") as outfile:
+            outfile.write(game_object)
         print(game_data)
     if not initiate:
-        with open('data/turn_dat.json') as f:
+        with open('images/turn_dat.json') as f:
             game_data = json.load(f)
+            turn = game_dat['turn_dat']
 
     pygame.font.init()
     pygame.display.set_caption('Modern Democracy: The Game!')
@@ -103,8 +112,8 @@ def main_game_screen(player_name, state_name, initiate=False):
 
         display_attributes = {
             Turn: game_data['game_dat']['turn'],
-            Population: format(game_data['state_dat']['pop'], ","),
-            Approval: "%s%%"%game_data['state_dat']['approval_level'],
+            Population: format(game_data['turn1']['pop'], ","),
+            Approval: "%s%%"%game_data['turn1']['approval_level'],
             Currency: 100
         }
 
@@ -148,6 +157,7 @@ def main_game_screen(player_name, state_name, initiate=False):
 
                     if DISPLAYSURF.blit(textures[item], (place_position-80, MAPHEIGHT * TILESIZE + 10)).collidepoint(click_pos):
                         in_game_menu(item)
+
 
 
 

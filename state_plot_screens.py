@@ -14,10 +14,10 @@ def population_screen():
         if event in (sg.WIN_CLOSED, 'Cancel'):
             break
         elif event == 'Population':
-            plot_state_attribute(attribute1="Population", custom_title="Population (Thousands)")
+            plot_state_attribute(attribute1="pop", custom_title="Population (Thousands)")
             plt.show(block=False)
         elif event == 'Birth/Death Rate':
-            plot_state_attribute(attribute1="Birth Rate", attribute2="Death Rate", custom_title="Birth/Death Rate (per k)")
+            plot_state_attribute(attribute1="birth_rate", attribute2="death_rate", custom_title="Birth/Death Rate (per k)")
             plt.show(block=False)
 
     window.close()
@@ -34,10 +34,10 @@ def approval_screen():
         if event in (sg.WIN_CLOSED, 'Cancel'):
             break
         elif event == 'Total Approval':
-            plot_state_attribute(attribute1="Approval", custom_title="Approval Rate (%)")
+            plot_state_attribute(attribute1="approval_level", custom_title="Approval Rate (%)")
             plt.show(block=False)
         elif event == 'Conservative/Liberal Approval':
-            plot_state_attribute(attribute1="Conservative Approval", attribute2="Liberal Approval",
+            plot_state_attribute(attribute1="approval_conservative", attribute2="approval_liberal",
                                  custom_title="Conservative/Liberal Approval Rates (%)")
             plt.show(block=False)
 
