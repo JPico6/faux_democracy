@@ -5,6 +5,7 @@ import json
 def new_turn():
     # identify length of turn, lets say it's a week, so
     turn_length = 7 # (days)
+    turn_year_proportion = 365/turn_length
 
     with open("data/turn_dat.json", "r") as jsonFile:
         game_data = json.load(jsonFile)
@@ -22,11 +23,6 @@ def new_turn():
     #       ii. death rate
     # (b) approval - more upset people get, the more they leave the state. The happier, the more immigrants
     #               (which could lead to other political crises)
-
-    # load game_data
-
-    # get current turn
-
 
     def population_change():
 
@@ -48,10 +44,11 @@ def new_turn():
         health_level = game_data[f'turn{current_turn}']['health_level']
         religious_level = game_data[f'turn{current_turn}']['religious_level']
 
-        pop_health_modifier = (health_level-base_avg)/base_avg   #% that health_level is less than average
-        pop_religious_modifier = (religious_level-base_avg)/base_avg
+        pop_health_modifier = (health_level-base_avg)/base_avg   #% that health_level is more/less than average
+        pop_religious_modifier = (religious_level-base_avg)/base_avg*0.50 # should be less strong than health modifier, right?
         pop_total_modifier = pop_health_modifier + pop_religious_modifier
         # pass it into the random number generator
+        # print(f"pop modifier = {pop_total_modifier}")
         birth_rate = val_from_normal_dist(mu=mu*(1+pop_total_modifier), sigma=sigma)
 
         # death rate
@@ -64,7 +61,6 @@ def new_turn():
 
         return birth_rate, death_rate
 
-
     birth_rate, death_rate = population_change()
 
     def change_in_politics():
@@ -76,7 +72,6 @@ def new_turn():
     def approval_change():
 
         pass
-
         # by subgroups
         # multiply by subgroups portion of population * pop
         # calculate total approval from the sum of the subgroups
@@ -86,10 +81,12 @@ def new_turn():
         # we want to save the birth and death rates for plotting
         # but need to use the x/365 to make actual population adjustments, assuming we're doing weeks
         current_population = game_data[f'turn{current_turn}']['pop']
-        births = current_population*birth_rate/turn_length/1000
-        deaths = current_population*death_rate/turn_length/1000
+        births = round(current_population*birth_rate/turn_year_proportion/1000,0)
+        deaths = round(current_population*death_rate/turn_year_proportion/1000,0)
         net_pop_change = births-deaths
         new_pop = int(current_population + net_pop_change)
+        # print(f"births = {births} and deaths = {deaths}")
+        # print(f"birth rate = {birth_rate} and death rate = {death_rate}")
         # print(f"current pop {current_population}")
         # print(f"new pop {new_pop}")
 
