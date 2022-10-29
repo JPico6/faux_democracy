@@ -34,7 +34,11 @@ def plot_state_attribute(attribute1, attribute2=False, custom_title=False):
         #ax.set_xticks(dat["Turn"])
         ax.get_xticklabels()
 
-        ax.legend()
+        ax.get_yaxis().set_major_formatter(
+            matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+
+        if attribute2:
+            ax.legend()
 
         if custom_title:
             matplotlib.pyplot.title("{}".format(custom_title), fontsize=16)

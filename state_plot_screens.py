@@ -14,7 +14,7 @@ def population_screen():
         if event in (sg.WIN_CLOSED, 'Cancel'):
             break
         elif event == 'Population':
-            plot_state_attribute(attribute1="pop", custom_title="Population (Thousands)")
+            plot_state_attribute(attribute1="pop", custom_title="Population")
             plt.show(block=False)
         elif event == 'Birth/Death Rate':
             plot_state_attribute(attribute1="birth_rate", attribute2="death_rate", custom_title="Birth/Death Rate (per k)")
