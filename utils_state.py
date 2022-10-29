@@ -40,21 +40,3 @@ def check_bounds(key, val):
             val = 1
     return int(val)
 
-
-def nested_keys(d) -> set:
-
-    from collections.abc import Mapping
-
-    """
-    Return a set containing all nested keys.
-    """
-    # If it is not a dict-like object, return an empty set
-    if not isinstance(d, Mapping):
-        return set()
-
-    keys = d.keys()
-    for v in d.values():
-        # Update the keys set with the keys in each value by using the union (or) operator: |
-        keys |= nested_keys(v)
-
-    return keys

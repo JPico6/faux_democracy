@@ -145,13 +145,13 @@ def main_game_screen(player_name, state_name, initiate=False):
                 DISPLAYSURF.blit(textObj, (place_position, MAPHEIGHT * TILESIZE + 10))
                 place_position += 50
 
-                if event.type == pygame.MOUSEMOTION:
-                    mouse_pos = pygame.mouse.get_pos()
-                    if DISPLAYSURF.blit(textures[item], (place_position-80, MAPHEIGHT * TILESIZE + 10)).collidepoint(mouse_pos):
-                        #pygame.mouse.set_visible(False)
-                        pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
-                    else:
-                        pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+                # if event.type == pygame.MOUSEMOTION:
+                #     mouse_pos = pygame.mouse.get_pos()
+                #     if DISPLAYSURF.blit(textures[item], (place_position-80, MAPHEIGHT * TILESIZE + 10)).collidepoint(mouse_pos):
+                #         #pygame.mouse.set_visible(False)
+                #         pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+                #     else:
+                #         pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     click_pos = pygame.mouse.get_pos()

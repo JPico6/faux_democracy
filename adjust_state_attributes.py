@@ -90,8 +90,8 @@ def new_turn():
         deaths = current_population*death_rate/turn_length/1000
         net_pop_change = births-deaths
         new_pop = int(current_population + net_pop_change)
-        print(f"current pop {current_population}")
-        print(f"new pop {new_pop}")
+        # print(f"current pop {current_population}")
+        # print(f"new pop {new_pop}")
 
         game_data[f'turn{current_turn}']['pop'] = new_pop
         game_data[f'turn{current_turn}']['birth_rate'] = birth_rate
@@ -99,17 +99,11 @@ def new_turn():
 
         return new_pop, birth_rate, death_rate
 
-    #update_population_values()
-
-    # need to add whole new turn/state details to the game_dat file
-    # also, need to do something like build a new folder per save game?
     # test other values, like really unhealthy pop - will it decrease?
 
     def update_turn():
 
         # increment turn
-        #game_data['game_dat']['turn'] += 1
-
         new_pop, birth_rate, death_rate = update_population_values()
         game_data[f'turn{current_turn}']['pop'] = new_pop
         game_data[f'turn{current_turn}']['birth_rate'] = birth_rate
@@ -119,19 +113,12 @@ def new_turn():
             orig_game_data = json.load(jsonFile)
 
         orig_game_data['game_dat']['turn'] = next_turn
-#        f = open(f"data/turn_dat.json")
-#        orig_game_data = json.loads(f.read())
         orig_game_data[f'turn{next_turn}'] = game_data[f'turn{current_turn}']
-#        updated_game_data = orig_game_data[f'turn{next_turn}'].update(game_data)
 
         # save new json
-        #turn_num = str(game_data['game_dat']['turn'])
         with open(f'data/turn_dat.json', 'w') as f:
             json.dump(orig_game_data, f)
             print('game data saved to data/game_dat.json')
-
-    # with open('x.txt', 'w')as outfile:
-    #     json.dump(data, outfile)
 
     update_turn()
 

@@ -31,7 +31,6 @@ def plot_state_attribute(attribute1, attribute2=False, custom_title=False):
         else:
             ax.set_ylabel(attribute1, fontsize=14)
         ax.set_xlabel("Turn", fontsize=14)
-        #ax.set_xticks(dat["Turn"])
         ax.get_xticklabels()
 
         ax.get_yaxis().set_major_formatter(
