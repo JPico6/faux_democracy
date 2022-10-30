@@ -6,6 +6,8 @@ import sys
 import json
 from adjust_state_attributes import new_turn
 from state_plot_screens import population_screen, approval_screen, election_screen #, currency_screen
+import os
+import settings
 
 
 color_white = (255, 255, 255)
@@ -26,13 +28,28 @@ def main_menu():
 
     def load_game():
         # open list of prior games
-        pass
+        load_game_screen()
 
     menu = pygame_menu.Menu('Modern Democracy: The Game!', 600, 400, theme=pygame_menu.themes.THEME_BLUE)
     menu.add.button('New Game', start_the_game)
     menu.add.button('Load Game', load_game)
     menu.add.button('Quit', pygame_menu.events.EXIT)
     menu.mainloop(surface)
+
+
+def load_game_screen():
+
+    def return_main_menu():
+        main_menu()
+
+    menu = pygame_menu.Menu('Modern Democracy: The Game!', 600, 400,
+                            theme=pygame_menu.themes.THEME_BLUE)
+
+    menu.add.button('Return to Main Menu', return_main_menu)
+    menu.mainloop(surface)
+
+    # add way to select file
+    # append the relevant variables to settings.py
 
 
 def start_game():
@@ -57,6 +74,10 @@ def game_start(name_box, state_name_box):
 
     player_name = name_box.get_value()
     state_name = state_name_box.get_value()
+    settings.game_vars_dict.update({"player": player_name})
+    settings.game_vars_dict.update({"state": state_name})
+
+
     menu = pygame_menu.Menu('Modern Democracy: The Game!', 600, 400,
                             theme=pygame_menu.themes.THEME_BLUE)
     menu.add.button(f'Welcome {player_name}!', close_menu)
@@ -85,12 +106,17 @@ def main_game_screen(player_name, state_name, initiate=False):
         game_data['game_dat']['player_name'] = player_name
         game_data['game_dat']['state_name'] = state_name
         # save:
+        path = f'data/{state_name}/'
+        isExist = os.path.exists(path)
+        if not isExist:
+            os.makedirs(path)
         game_object = json.dumps(game_data)
-        with open("data/turn_dat.json", "w") as outfile:
+        with open(f"{path}/turn_dat.json", "w") as outfile:
             outfile.write(game_object)
         print(game_data)
+
     if not initiate:
-        with open('data/turn_dat.json') as f:
+        with open(f'data/{state_name}/turn_dat.json') as f:
             game_data = json.load(f)
 
     pygame.font.init()

@@ -149,14 +149,14 @@ def initiate_game():
     # Serializing json
     game_object = json.dumps(game_data)
 
-    path = 'data/'
-    isExist = os.path.exists(path)
-    if not isExist:
-        os.makedirs(path)
-
-    # Writing to sample.json
-    with open("data/turn_dat.json", "w") as outfile:
-        outfile.write(game_object)
+    # path = 'data/'
+    # isExist = os.path.exists(path)
+    # if not isExist:
+    #     os.makedirs(path)
+    #
+    # # Writing to sample.json
+    # with open("data/turn_dat.json", "w") as outfile:
+    #     outfile.write(game_object)
 
     return game_data
 

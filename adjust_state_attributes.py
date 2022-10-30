@@ -3,11 +3,15 @@ import json
 
 
 def new_turn():
+
+    import settings
+    state_name = settings.game_vars_dict['state']
+
     # identify length of turn, lets say it's a week, so
     turn_length = 7 # (days)
     turn_year_proportion = 365/turn_length
 
-    with open("data/turn_dat.json", "r") as jsonFile:
+    with open(f"data/{state_name}/turn_dat.json", "r") as jsonFile:
         game_data = json.load(jsonFile)
 #    f = open(f"data/turn_dat.json")
 #    game_data = json.loads(f.read())
@@ -116,7 +120,7 @@ def new_turn():
         game_data[f'turn{current_turn}']['birth_rate'] = birth_rate
         game_data[f'turn{current_turn}']['death_rate'] = death_rate
 
-        with open("data/turn_dat.json", "r") as jsonFile:
+        with open(f"data/{state_name}/turn_dat.json", "r") as jsonFile:
             orig_game_data = json.load(jsonFile)
 
         orig_game_data['game_dat']['turn'] = next_turn
@@ -124,7 +128,7 @@ def new_turn():
         orig_game_data[f'turn{next_turn}'] = game_data[f'turn{current_turn}']
 
         # save new json
-        with open(f'data/turn_dat.json', 'w') as f:
+        with open(f'data/{state_name}/turn_dat.json', 'w') as f:
             json.dump(orig_game_data, f)
             # print('game data saved to data/game_dat.json')
 

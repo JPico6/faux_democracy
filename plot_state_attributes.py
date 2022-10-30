@@ -4,7 +4,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import mplcyberpunk
 import json
-
+import settings
 
 def plot_state_attribute(attribute1, attribute2=False, custom_title=False):
 
@@ -52,7 +52,8 @@ def plot_state_attribute(attribute1, attribute2=False, custom_title=False):
         return fig
 
     # create table for plotting
-    with open("data/turn_dat.json", "r") as jsonFile:
+    state_name = settings.game_vars_dict['state']
+    with open(f"data/{state_name}/turn_dat.json", "r") as jsonFile:
         game_data = json.load(jsonFile)
     n_turns = game_data['game_dat']['turn']
     turn = np.arange(1, n_turns + 1)
