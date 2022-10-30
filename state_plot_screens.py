@@ -28,7 +28,7 @@ def population_screen():
 
 def approval_screen():
 
-    layout = [[sg.Button('Total Approval'), sg.Button('Conservative/Liberal Approval'), sg.Cancel()]]
+    layout = [[sg.Button('Total Approval'), sg.Button('Conserv/Liberal Approval'), sg.Cancel()]]
 
     window = sg.Window('State Approval Ratings', layout, size=(400, 400))
 
@@ -39,7 +39,7 @@ def approval_screen():
         elif event == 'Total Approval':
             plot_state_attribute(attribute1="approval_level", custom_title="Approval Rate (%)")
             plt.show(block=False)
-        elif event == 'Conservative/Liberal Approval':
+        elif event == 'Conserv/Liberal Approval':
             plot_state_attribute(attribute1="approval_conservative", attribute2="approval_liberal",
                                  custom_title="Conservative/Liberal Approval Rates (%)")
             plt.show(block=False)
@@ -48,6 +48,26 @@ def approval_screen():
 
 
 def election_screen():
+
+    def cancel_election_screen():
+
+        layout = [
+            [sg.Text(f'Are you absolutely certain you want to\nend the remaining pretext of democracy?')],
+            [sg.Button("Cancel Elections")],
+            [sg.Cancel()]
+        ]
+        window = sg.Window('State Elections', layout, size=(400, 400))
+
+        while True:
+            event, values = window.read()
+            if event in (sg.WIN_CLOSED, 'Cancel'):
+                break
+            elif event == 'Cancel Elections':
+                sg.set_options(font=("Helvetica", 14))
+                sg.popup('Well fuck Democracy, then', title='Fuck Democracy')
+
+        window.close()
+
 
     with open('data/turn_dat.json') as f:
         game_data = json.load(f)
@@ -65,7 +85,8 @@ def election_screen():
         if event in (sg.WIN_CLOSED, 'Cancel'):
             break
         elif event == 'Cancel Election':
-            sg.set_options(font=("Helvetica", 14))
-            sg.popup('To hell with the pretense of democracy, then', title='Cancel Elections')
+            window.close()
+            cancel_election_screen()
+            #sg.popup('To hell with the pretense of democracy, then', title='Cancel Elections')
 
     window.close()
