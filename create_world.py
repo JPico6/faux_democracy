@@ -19,6 +19,7 @@ class State:
             religious_level=None,
             education_level=None,
             economy_level=None,
+            crime_level=None,
             conservative_level=None,
             liberal_level=None,
             approval_level=None,
@@ -46,6 +47,8 @@ class State:
             self.education_level = val_from_normal_dist(modify_dist_mean(self.religious_level))
         if not self.economy_level:
             self.economy_level = val_from_normal_dist()
+        if not self.crime_level:
+            self.crime_level = val_from_normal_dist()
         if not self.conservative_level:
             self.conservative_level = val_from_normal_dist(modify_dist_mean(self.religious_level, inv=True))
         if not self.liberal_level:
@@ -79,6 +82,7 @@ class State:
                   'religious_level',
                   'education_level',
                   'economy_level',
+                  'crime_level',
                   'conservative_level',
                   'liberal_level',
                   'approval_level',
@@ -99,6 +103,7 @@ class State:
                 self.religious_level,
                 self.education_level,
                 self.economy_level,
+                self.crime_level,
                 self.conservative_level,
                 self.liberal_level,
                 self.approval_level,
@@ -157,7 +162,7 @@ def initiate_game():
 
 #    def return_attributes(self):
 
-# TODO: determine how best to store values between turns (save to file?)
+# TODO: determine how best to save/load games
 # TODO: when an attribute value reaches 100 and modifiers continue to push it up, that should affect the extremist proportions
 # TODO: as attributes get more extreme, they should more slowly modify further towards the extremes
 # e.g., the modifier should be reduced when going up from 80 but should be able to drop at normal speed
