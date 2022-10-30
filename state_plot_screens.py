@@ -1,6 +1,9 @@
 import PySimpleGUI as sg
 import matplotlib.pyplot as plt
 from plot_state_attributes import plot_state_attribute
+import json
+
+sg.set_options(font=("Helvetica", 14))
 
 
 def population_screen():
@@ -40,5 +43,29 @@ def approval_screen():
             plot_state_attribute(attribute1="approval_conservative", attribute2="approval_liberal",
                                  custom_title="Conservative/Liberal Approval Rates (%)")
             plt.show(block=False)
+
+    window.close()
+
+
+def election_screen():
+
+    with open('data/turn_dat.json') as f:
+        game_data = json.load(f)
+        turns_to_election = game_data['game_dat']['turns_next_election']
+
+    layout = [
+        [sg.Text(f'Turns until the next election: {turns_to_election}')],
+        [sg.Button('Cancel Election'),
+         sg.Cancel()]]
+
+    window = sg.Window('State Elections', layout, size=(400, 400))
+
+    while True:
+        event, values = window.read()
+        if event in (sg.WIN_CLOSED, 'Cancel'):
+            break
+        elif event == 'Cancel Election':
+            sg.set_options(font=("Helvetica", 14))
+            sg.popup('To hell with the pretense of democracy, then', title='Cancel Elections')
 
     window.close()

@@ -5,7 +5,7 @@ from pygame.locals import *
 import sys
 import json
 from adjust_state_attributes import new_turn
-from state_plot_screens import population_screen, approval_screen#, currency_screen
+from state_plot_screens import population_screen, approval_screen, election_screen #, currency_screen
 
 
 color_white = (255, 255, 255)
@@ -74,7 +74,9 @@ def main_game_screen(player_name, state_name, initiate=False):
             population_screen()
         if inpt == 2:
             approval_screen()
-        # if inpt == 3:
+        if inpt == 3:
+            election_screen()
+        # if inpt == 4:
         #     currency_menu()
 
     # create player-state attributes
