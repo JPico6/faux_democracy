@@ -18,6 +18,7 @@ class State:
             pop=None,
             religious_level=None,
             education_level=None,
+            economy_level=None,
             conservative_level=None,
             liberal_level=None,
             approval_level=None,
@@ -43,6 +44,8 @@ class State:
             self.religious_level = val_from_normal_dist()
         if not self.education_level:
             self.education_level = val_from_normal_dist(modify_dist_mean(self.religious_level))
+        if not self.economy_level:
+            self.economy_level = val_from_normal_dist()
         if not self.conservative_level:
             self.conservative_level = val_from_normal_dist(modify_dist_mean(self.religious_level, inv=True))
         if not self.liberal_level:
@@ -75,6 +78,7 @@ class State:
         labels = ['pop',
                   'religious_level',
                   'education_level',
+                  'economy_level',
                   'conservative_level',
                   'liberal_level',
                   'approval_level',
@@ -94,6 +98,7 @@ class State:
         vals = [self.pop,
                 self.religious_level,
                 self.education_level,
+                self.economy_level,
                 self.conservative_level,
                 self.liberal_level,
                 self.approval_level,
@@ -127,6 +132,7 @@ def initiate_game():
     game_data = {}
     game_dat = {}
     game_dat['turn'] = 1
+    game_dat['turns_next_election'] = 208
     turn_dat = {}
    # turn_dat['turn'] = 1
     # b. initiate state(s)

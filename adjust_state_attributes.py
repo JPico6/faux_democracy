@@ -68,10 +68,20 @@ def new_turn():
         pass
         # change in party memberships
         # increase/decrease in extremists
+        # based on (a) policy, (b) emergent problems, ...
 
     def approval_change():
 
         pass
+        # what makes approval?
+            # economy: effects all subgroups equally
+            # immigration: high immigration makes extreme conservatives very upset, conservatives upset, what about liberals?
+            # under/over population?
+
+
+            # obviously policy - but we're not there yet
+
+
         # by subgroups
         # multiply by subgroups portion of population * pop
         # calculate total approval from the sum of the subgroups
@@ -110,6 +120,7 @@ def new_turn():
             orig_game_data = json.load(jsonFile)
 
         orig_game_data['game_dat']['turn'] = next_turn
+        orig_game_data['game_dat']['turns_next_election'] -= 1
         orig_game_data[f'turn{next_turn}'] = game_data[f'turn{current_turn}']
 
         # save new json

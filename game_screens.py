@@ -108,13 +108,14 @@ def main_game_screen(player_name, state_name, initiate=False):
         MAPHEIGHT = 15
         TILESIZE = 40
 
-        Turn, Population, Approval, Currency = 0, 1, 2, 3
+        Turn, Population, Approval, Election, Currency = 0, 1, 2, 3, 4
 
         current_turn = game_data['game_dat']['turn']
         display_attributes = {
             Turn: game_data['game_dat']['turn'],
             Population: format(game_data[f'turn{current_turn}']['pop'], ","),
             Approval: "%s%%"%game_data[f'turn{current_turn}']['approval_level'],
+            Election: game_data['game_dat']['turns_next_election'],
             Currency: 100
         }
 
@@ -122,6 +123,7 @@ def main_game_screen(player_name, state_name, initiate=False):
             Turn: pygame.transform.scale(pygame.image.load('images/turn.png'), (40, 40)),
             Population: pygame.transform.scale(pygame.image.load('images/pop.jpg'), (40, 40)),
             Approval: pygame.transform.scale(pygame.image.load('images/approval.jpg'), (40, 40)),
+            Election: pygame.transform.scale(pygame.image.load('images/election.jpg'), (40, 40)),
             Currency: pygame.transform.scale(pygame.image.load('images/currency.png'), (40, 40))
         }
 
