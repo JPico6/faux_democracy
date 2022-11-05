@@ -138,29 +138,15 @@ def initiate_game():
     game_dat = {}
     game_dat['turn'] = 1
     game_dat['turns_next_election'] = 208
-    turn_dat = {}
-   # turn_dat['turn'] = 1
+
     # b. initiate state(s)
     state1 = State()
     state1_attributes = state1.generate_attributes()
     game_data['game_dat'] = game_dat
     game_data['turn1'] = state1_attributes
 
-    # Serializing json
-    game_object = json.dumps(game_data)
-
-    # path = 'data/'
-    # isExist = os.path.exists(path)
-    # if not isExist:
-    #     os.makedirs(path)
-    #
-    # # Writing to sample.json
-    # with open("data/turn_dat.json", "w") as outfile:
-    #     outfile.write(game_object)
-
     return game_data
 
-#    def return_attributes(self):
 
 # TODO: determine how best to save/load games
 # TODO: when an attribute value reaches 100 and modifiers continue to push it up, that should affect the extremist proportions

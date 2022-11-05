@@ -9,7 +9,6 @@ from state_plot_screens import population_screen, approval_screen, election_scre
 import os
 import settings
 
-
 color_white = (255, 255, 255)
 color_black = (0, 0, 0)
 surface = pygame.display.set_mode((1000, 600))
@@ -39,6 +38,10 @@ def main_menu():
 
 def load_game_screen():
 
+    def load_game():
+        from load_saved_game import select_saved_game
+        select_saved_game()
+
     def return_main_menu():
         main_menu()
 
@@ -46,6 +49,7 @@ def load_game_screen():
                             theme=pygame_menu.themes.THEME_BLUE)
 
     menu.add.button('Return to Main Menu', return_main_menu)
+    menu.add.button('Load Game', load_game)
     menu.mainloop(surface)
 
     # add way to select file
@@ -74,8 +78,11 @@ def game_start(name_box, state_name_box):
 
     player_name = name_box.get_value()
     state_name = state_name_box.get_value()
+    f_path = os.path.dirname(os.path.abspath(__file__))
     settings.game_vars_dict.update({"player": player_name})
     settings.game_vars_dict.update({"state": state_name})
+    settings.game_vars_dict.update({"file_location": f_path})
+    print(f_path)
 
 
     menu = pygame_menu.Menu('Modern Democracy: The Game!', 600, 400,
@@ -116,6 +123,8 @@ def main_game_screen(player_name, state_name, initiate=False):
         print(game_data)
 
     if not initiate:
+        # get state_name:
+        state_name = settings.game_vars_dict['state']
         with open(f'data/{state_name}/turn_dat.json') as f:
             game_data = json.load(f)
 
