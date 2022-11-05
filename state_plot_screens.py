@@ -2,14 +2,15 @@ import PySimpleGUI as sg
 import matplotlib.pyplot as plt
 from plot_state_attributes import plot_state_attribute
 import json
+import settings
 
 sg.set_options(font=("Helvetica", 14))
+
 
 
 def population_screen():
 
     layout = [[sg.Button('Population'), sg.Button('Birth/Death Rate'), sg.Cancel()]]
-
     window = sg.Window('Historical Population Characteristics', layout, size=(400, 400))
 
     while True:
@@ -68,10 +69,12 @@ def election_screen():
 
         window.close()
 
-
-    with open('data/turn_dat.json') as f:
+    state_name = settings.game_vars_dict['state']
+    with open(f'data/{state_name}/turn_dat.json') as f:
         game_data = json.load(f)
-        turns_to_election = game_data['game_dat']['turns_next_election']
+    # with open('data/turn_dat.json') as f:
+    #     game_data = json.load(f)
+    turns_to_election = game_data['game_dat']['turns_next_election']
 
     layout = [
         [sg.Text(f'Turns until the next election: {turns_to_election}')],
