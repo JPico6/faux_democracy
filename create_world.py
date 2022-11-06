@@ -33,7 +33,10 @@ class State:
             approval_extr_liberal=None,
             health_level=None,
             birth_rate=None,
-            death_rate=None
+            death_rate=None,
+            police_level=None,
+            military_level=None,
+            environment_level=None
     ):
         self.__dict__.update(locals())
 
@@ -77,6 +80,12 @@ class State:
             self.birth_rate = 13
         if not self.death_rate:
             self.death_rate = 8
+        if not self.police_level:
+            self.police_level = 50
+        if not self.military_level:
+            self.military_level = 50
+        if not self.environment_level:
+            self.environment_level = 50
 
         labels = ['pop',
                   'religious_level',
@@ -96,8 +105,11 @@ class State:
                   'approval_extr_liberal',
                   'health_level',
                   'birth_rate',
-                  'death_rate'
-                  ]
+                  'death_rate',
+                  'police_level',
+                  'military_level',
+                  'environment_level'
+        ]
 
         vals = [self.pop,
                 self.religious_level,
@@ -117,7 +129,10 @@ class State:
                 self.approval_extr_liberal,
                 self.health_level,
                 self.birth_rate,
-                self.death_rate
+                self.death_rate,
+                self.police_level,
+                self.military_level,
+                self.environment_level
                 ]
         state_attributes = dict(zip(labels, vals))
 
