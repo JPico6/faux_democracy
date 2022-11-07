@@ -198,7 +198,3 @@ def main_game_screen(player_name, state_name, initiate=False):
                     if DISPLAYSURF.blit(textures[item], (place_position-80, MAPHEIGHT * TILESIZE + 10)).collidepoint(click_pos):
                         in_game_menu(item)
 
-
-
-
-

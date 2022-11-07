@@ -1,14 +1,5 @@
-import json
 import random
-import os
 from utils_state import val_from_normal_dist, modify_dist_mean, check_bounds
-
-
-# class World:
-#
-#     def __init__(self, n_states=None):
-#         if not n_states:
-#             n_states=random.randint(2,10)
 
 
 class State:
@@ -19,6 +10,9 @@ class State:
             religious_level=None,
             education_level=None,
             economy_level=None,
+            individual_tax_level=None,
+            corporate_tax_level=None,
+            revenue=None,
             crime_level=None,
             conservative_level=None,
             liberal_level=None,
@@ -36,7 +30,9 @@ class State:
             death_rate=None,
             police_level=None,
             military_level=None,
-            environment_level=None
+            environment_level=None,
+            infrastructure_level=None,
+            social_programs_level=None
     ):
         self.__dict__.update(locals())
 
@@ -50,6 +46,13 @@ class State:
             self.education_level = val_from_normal_dist(modify_dist_mean(self.religious_level))
         if not self.economy_level:
             self.economy_level = val_from_normal_dist()
+        if not self.individual_tax_level:
+            self.individual_tax_level = 0.25
+        if not self.corporate_tax_level:
+            self.corporate_tax_level = 0.25
+        if not self.revenue:
+            self.revenue = int(((self.pop*50000*self.individual_tax_level*self.economy_level*0.02)/52) + \
+                           ((self.corporate_tax_level*self.pop*0.25*20000*self.economy_level*0.02)/52))
         if not self.crime_level:
             self.crime_level = val_from_normal_dist()
         if not self.conservative_level:
@@ -86,11 +89,18 @@ class State:
             self.military_level = 50
         if not self.environment_level:
             self.environment_level = 50
+        if not self.infrastructure_level:
+            self.infrastructure_level = 50
+        if not self.social_programs_level:
+            self.social_programs_level = 50
 
         labels = ['pop',
                   'religious_level',
                   'education_level',
                   'economy_level',
+                  'individual_tax_level',
+                  'corporate_tax_level',
+                  'revenue',
                   'crime_level',
                   'conservative_level',
                   'liberal_level',
@@ -108,13 +118,18 @@ class State:
                   'death_rate',
                   'police_level',
                   'military_level',
-                  'environment_level'
+                  'environment_level',
+                  'infrastructure_level',
+                  'social_programs_level'
         ]
 
         vals = [self.pop,
                 self.religious_level,
                 self.education_level,
                 self.economy_level,
+                self.individual_tax_level,
+                self.corporate_tax_level,
+                self.revenue,
                 self.crime_level,
                 self.conservative_level,
                 self.liberal_level,
@@ -132,23 +147,25 @@ class State:
                 self.death_rate,
                 self.police_level,
                 self.military_level,
-                self.environment_level
+                self.environment_level,
+                self.infrastructure_level,
+                self.social_programs_level
                 ]
         state_attributes = dict(zip(labels, vals))
 
         return state_attributes
 
-    def update_attributes(self, attribute_mod_dict):
-
-        # modify each population attribute based on current events / player decisions per turn
-        for key, value in attribute_mod_dict.items():
-            orig_value = getattr(self, key, value)
-            new_value = orig_value * value
-            setattr(self, key, check_bounds(key, new_value))
+    # def update_attributes(self, attribute_mod_dict):
+    #
+    #     # modify each population attribute based on current events / player decisions per turn
+    #     for key, value in attribute_mod_dict.items():
+    #         orig_value = getattr(self, key, value)
+    #         new_value = orig_value * value
+    #         setattr(self, key, check_bounds(key, new_value))
 
 
 def initiate_game():
-    # A. initiate world
+    # A. initiate game
     game_data = {}
     game_dat = {}
     game_dat['turn'] = 1
@@ -163,7 +180,6 @@ def initiate_game():
     return game_data
 
 
-# TODO: determine how best to save/load games
 # TODO: when an attribute value reaches 100 and modifiers continue to push it up, that should affect the extremist proportions
 # TODO: as attributes get more extreme, they should more slowly modify further towards the extremes
 # e.g., the modifier should be reduced when going up from 80 but should be able to drop at normal speed

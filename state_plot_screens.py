@@ -7,10 +7,15 @@ import settings
 sg.set_options(font=("Helvetica", 14))
 
 
-
 def population_screen():
 
-    layout = [[sg.Button('Population'), sg.Button('Birth/Death Rate'), sg.Cancel()]]
+    layout = [
+        [
+         sg.Button('Population'),
+         sg.Button('Birth/Death Rate'),
+         sg.Cancel()
+         ]
+    ]
     window = sg.Window('Historical Population Characteristics', layout, size=(400, 400))
 
     while True:
@@ -29,7 +34,13 @@ def population_screen():
 
 def approval_screen():
 
-    layout = [[sg.Button('Total Approval'), sg.Button('Conserv/Liberal Approval'), sg.Cancel()]]
+    layout = [
+        [
+            sg.Button('Total Approval'),
+            sg.Button('Conserv/Liberal Approval'),
+            sg.Cancel()
+        ]
+    ]
 
     window = sg.Window('State Approval Ratings', layout, size=(400, 400))
 
@@ -53,7 +64,8 @@ def election_screen():
     def cancel_election_screen():
 
         layout = [
-            [sg.Text(f'Are you absolutely certain you want to\nend the remaining pretext of democracy?')],
+            [
+            sg.Text(f'Are you absolutely certain you want to\nend the remaining pretext of democracy?')],
             [sg.Button("Cancel Elections")],
             [sg.Cancel()]
         ]
@@ -72,14 +84,13 @@ def election_screen():
     state_name = settings.game_vars_dict['state']
     with open(f'data/{state_name}/turn_dat.json') as f:
         game_data = json.load(f)
-    # with open('data/turn_dat.json') as f:
-    #     game_data = json.load(f)
     turns_to_election = game_data['game_dat']['turns_next_election']
 
     layout = [
         [sg.Text(f'Turns until the next election: {turns_to_election}')],
         [sg.Button('Cancel Election'),
-         sg.Cancel()]]
+         sg.Cancel()]
+    ]
 
     window = sg.Window('State Elections', layout, size=(400, 400))
 
@@ -90,6 +101,5 @@ def election_screen():
         elif event == 'Cancel Election':
             window.close()
             cancel_election_screen()
-            #sg.popup('To hell with the pretense of democracy, then', title='Cancel Elections')
 
     window.close()

@@ -6,9 +6,18 @@ import mplcyberpunk
 import json
 import settings
 
-def plot_state_attribute(attribute1, attribute2=False, custom_title=False):
 
-    def plot(dat, attribute1, attribute2=False, custom_title=False):
+def plot_state_attribute(
+        attribute1,
+        attribute2=False,
+        custom_title=False
+):
+
+    def plot(dat,
+             attribute1,
+             attribute2=False,
+             custom_title=False
+             ):
 
         plt.style.use("cyberpunk")
 

@@ -1,7 +1,11 @@
 import scipy.stats as stats
 
 
-def val_from_normal_dist(modifier=1, mu=None, sigma=None):
+def val_from_normal_dist(
+        modifier=1,
+        mu=None,
+        sigma=None
+):
 
     # generates a value from a normal distribution
     # modifier alters the mean, default to 1 (no modification)
@@ -20,7 +24,10 @@ def val_from_normal_dist(modifier=1, mu=None, sigma=None):
     return int(value)
 
 
-def modify_dist_mean(val, inv=False):
+def modify_dist_mean(
+        val,
+        inv=False
+):
 
     # pass in the value to modify
     # in some cases we want to inverse the modifier
@@ -31,7 +38,11 @@ def modify_dist_mean(val, inv=False):
     return modifier
 
 
-def check_bounds(key, val):
+def check_bounds(
+        key,
+        val
+):
+
     # ensure values stay in bounds (1-100)
     if key != 'pop':
         if val > 100:
